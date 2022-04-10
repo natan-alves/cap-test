@@ -1,0 +1,61 @@
+doctype html
+html
+    head
+        title=`Accounts List`
+        link(rel='stylesheet' href='https://getbootstrap.com/docs/5.1/dist/css/bootstrap.min.css')
+        style.
+            html,body {
+                height: 100%;
+            }
+
+            body {
+                display: flex;
+                align-items: center;
+                padding-top: 40px;
+                padding-bottom: 40px;
+                background-color: #f5f5f5;
+            }
+
+            .customers {
+                width: 100%;
+                max-width: 830px;
+                padding: 15px;
+                margin: auto;
+            }
+
+            .card {
+                margin-bottom: 5px;
+            }
+
+    body
+        main(class="customers")
+            h1(class="display-1 text-center") 🏦
+            if data[0]
+                each customer in data
+                    div(class="card")
+                        div(class="card-body")
+                            p(class="card-text mb-1")= `Name: ${customer._name}`
+                            p(class="card-text mb-1")= `Surname: ${customer._surname}`
+                            p(class="card-text mb-1")= `Customer Id: ${customer._id}`
+                            p(class="card-text")= `Overall Balance: $${customer._balance}`
+                            div(class="card")
+                                ul(class="list-group list-group-flush")
+                                    each account in customer._accounts
+                                        li(class="list-group-item")
+                                            p(class="card-text mb-1")= `Account Id: ${account._account_id}`
+                                            p(class="card-text mb-1")= `Balance from Account: ${account._balance}`
+                                            div(class="card")
+                                                ul(class="list-group list-group-flush")
+                                                    each transaction in account._transaction_history
+                                                        li(class="list-group-item")= `Transaction of $${transaction._ammount} in ${transaction._date}`
+                                                    else
+                                                        li(class="list-group-item")= `No transactions yet`
+                                    else
+                                        li(class="list-group-item")= `No accounts yet`
+            else
+                div(class="card")
+                    div(class="card-body")
+                        h5(class="card-title")= `No customers found`
+
+        script(src='https://code.jquery.com/jquery-3.4.1.slim.min.js')
+        script(src='https://getbootstrap.com/docs/5.1/dist/js/bootstrap.bundle.min.js')

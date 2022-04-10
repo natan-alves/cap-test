@@ -1,0 +1,42 @@
+{
+    "name": "cap-test",
+    "version": "1.0.0",
+    "description": "Test Application",
+    "engines": {
+        "node": "12.19.0"
+    },
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "start:debug": "node --inspect-brk index.js",
+        "lint": "./node_modules/prettier/bin-prettier.js --check \"src/**/*.js\"",
+        "lint:fix": "./node_modules/prettier/bin-prettier.js --write \"src/**/*.js\"",
+        "check-node-version": "./node_modules/check-node-version/bin.js --node '>= 10'",
+        "test": "NODE_ENV=test npm run check-node-version && jest \"\\.spec\\.js$\" --runInBand --detectOpenHandles --forceExit",
+        "test:debug": "export NODE_ENV=test; node --inspect-brk node_modules/.bin/jest",
+        "test:integration": "NODE_ENV=test npm run check-node-version && jest -c jest.integration.config.js --runInBand --detectOpenHandles --forceExit",
+        "test:integration:coverage": "NODE_ENV=test npm run check-node-version && jest -c jest.integration.config.js --runInBand --detectOpenHandles --forceExit --coverage",
+        "test:watch": "NODE_ENV=test npm run check-node-version && jest \"\\.spec\\.js$\" --runInBand --detectOpenHandles --forceExit --watch",
+        "test:coverage": "npm run test:unit:coverage",
+        "test:verbose": "NODE_ENV=test npm run check-node-version && jest \"\\.spec\\.js$\" --runInBand --detectOpenHandles --forceExit --verbose",
+        "coverage": "NODE_ENV=test npm run check-node-version && jest -c jest.config.js --runInBand --detectOpenHandles --forceExit --collectCoverageFrom=src/**/*.js --coverage",
+        "coverage:summary": "NODE_ENV=test npm run check-node-version && jest \"\\.spec\\.js$\" --runInBand --collectCoverageFrom=src/**/*.js --coverage --coverageReporters=text-summary",
+        "coverage:html": "NODE_ENV=test npm run test:coverage && ./node_modules/node-static/bin/cli.js --port 5000 coverage/lcov-report"
+    },
+    "author": "Natan Alves",
+    "license": "ISC",
+    "dependencies": {
+        "ajv": "^8.11.0",
+        "fastify": "^3.27.4",
+        "fastify-formbody": "^5.2.0",
+        "fastify-swagger": "^5.1.0",
+        "point-of-view": "^5.2.0",
+        "pug": "^3.0.2",
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "check-node-version": "^4.2.1",
+        "jest": "^27.5.1",
+        "prettier": "^2.6.2"
+    }
+}
